@@ -4,7 +4,7 @@
 % Group Member Information
 
 Rishit Maiti 
-  * Contributions - Printed the 'S' alongside the A using the Recursion and Cut Functions presented in Recitations
+  * Contributions - Printed the 'S' alongside the A using concepts from the Recursion and Cut Functions presented in Recitations
 
 
 % Jason Naicker
