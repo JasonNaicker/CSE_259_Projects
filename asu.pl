@@ -22,6 +22,8 @@ drawVerticalLinesWithSpace(Symbol, Height, Width) :-
     Height1 is Height - 1,
     drawVerticalLinesWithSpace(Symbol, Height1, Width).
 
+/*---------------------------------------------------------------------------------------*/
+
   /*---------*/
  /* draw A */
 /*-------*/
@@ -109,6 +111,41 @@ drawS(TextWidth, _TextHeight, FontSize, _CurrentLine, ColumnNumber) :-
     NextColumn is ColumnNumber + FontSize,
     drawS(TextWidth, _TextHeight, FontSize, _CurrentLine, NextColumn).
 
+  /*---------*/
+ /* draw U */
+/*-------*/
+  drawU(TextWidth, TextHeight, FontSize, CurrentLine, ColumnNumber) :-
+    ColumnNumber >= TextWidth, !.
+
+   /* Left-most and right-most columns with stars */
+  drawU(TextWidth, TextHeight, FontSize, CurrentLine, ColumnNumber) :-
+    (
+        (ColumnNumber >= 0, ColumnNumber < FontSize);
+        (ColumnNumber >= FontSize * 2, ColumnNumber < TextWidth)
+    ),
+        drawSymbol('*', FontSize),
+        NextColumn is ColumnNumber + FontSize,
+        drawU(TextWidth, TextHeight, FontSize, CurrentLine, NextColumn).
+
+    /*Spaces Between the Left-most and right-most columns */
+    drawU(TextWidth, TextHeight, FontSize, CurrentLine, ColumnNumber) :-
+        (ColumnNumber >= FontSize, ColumnNumber < FontSize * 2),
+        (
+            (CurrentLine >= 0, CurrentLine < 4 * FontSize)
+        ),
+        drawSymbol(' ', FontSize),
+        NextColumn is ColumnNumber + FontSize,
+        drawU(TextWidth, TextHeight, FontSize, CurrentLine, NextColumn).
+    /* Bottom horizontal segment with stars */
+    drawU(TextWidth, TextHeight, FontSize, CurrentLine, ColumnNumber) :-
+       (ColumnNumber >= 0, ColumnNumber < TextWidth),
+       (CurrentLine >= 4 * FontSize, CurrentLine < TextHeight),
+       drawSymbol('*', FontSize),
+       NextColumn is ColumnNumber + FontSize,
+       drawU(TextWidth, TextHeight, FontSize, CurrentLine, NextColumn).
+   
+/*---------------------------------------------------------------------------------------*/
+
 /*----------------*/
 /* Proper Spacing */
 /*----------------*/
@@ -123,6 +160,8 @@ draw(LeftRightMargin, SpaceBetweenCharacters, FontSize, CurrentLine, TextWidth, 
     drawA(TextWidth, TextHeight, FontSize, CurrentLine, ColumnNumber),
     drawSymbol(' ', SpaceBetweenCharacters),
     drawS(TextWidth, TextHeight, FontSize, CurrentLine, 0),
+    drawSymbol(' ', SpaceBetweenCharacters),
+    drawU(TextWidth, TextHeight, FontSize, CurrentLine, 0),
     drawSymbol(' ', LeftRightMargin),
     write('|'), nl,
     NextLine is CurrentLine + 1,
@@ -161,3 +200,4 @@ asu(LeftRightMargin, BottomTopMargin, SpaceBetweenCharacters, FontSize) :-
 
     /* bottom horizontal line of the box */
     drawHorizontalLine('-', Width).
+
