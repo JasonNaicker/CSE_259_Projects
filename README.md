@@ -8,3 +8,4 @@ Rishit Maiti
 
 
 % Jason Naicker
+* Contributions - Added functionality to print the 'U' alongside 'A' and 'S' using concepts from the Recursion and Cut Functions presented in Recitations
