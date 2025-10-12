@@ -3,7 +3,7 @@
 
 % Group Member Information
 
-Rishit Maiti 
+% Rishit Maiti 
   * Contributions - Added functionality to print the 'S' alongside the A using concepts from the Recursion and Cut Functions presented in Recitations
 
 
